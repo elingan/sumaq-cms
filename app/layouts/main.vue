@@ -13,10 +13,13 @@
 </template>
 
 <script lang="ts" setup>
-// const route = useRoute();
 
-// const pageTitle = computed(() => {
-//   if (!route.name) return "";
+const route = useRoute();
+
+const pageTitle = computed(() => {
+  if (!route.name) return "title";
+  return String(route.name);
+});
 
 //   // Convert route name like 'main-dashboard' to 'Dashboard'
 //   const name = String(route.name);

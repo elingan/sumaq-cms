@@ -6,4 +6,5 @@ ignoredBuiltDependencies:
   - vue-demi
 
 onlyBuiltDependencies:
+  - '@clerk/shared'
   - sharp
