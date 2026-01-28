@@ -29,37 +29,64 @@
 <script lang="ts" setup>
 import type { NavigationMenuItem } from "@nuxt/ui";
 
+const { isAdmin } = useRole();
+
 // const route = useRoute();
 
-const items: NavigationMenuItem[] = computed(() => [
-  {
-    label: "Dashboard",
-    icon: "i-lucide-house",
-    to: "/dashboard",
-  },
-  {
-    label: "Billing",
-    icon: "i-lucide-credit-card",
-    to: "/billing",
-  },
-  {
-    label: "Settings",
-    icon: "i-lucide-settings",
-    to: "/settings",
-    // defaultOpen: true,
-    // children: [
-    //   {
-    //     label: "General",
-    //   },
-    //   {
-    //     label: "Members",
-    //   },
-    //   {
-    //     label: "Notifications",
-    //   },
-    // ],
-  },
-]);
+const items: NavigationMenuItem[] = computed(() => {
+  const menu: NavigationMenuItem[] = [
+    {
+      label: "Dashboard",
+      icon: "i-lucide-house",
+      to: "/dashboard",
+    },
+    {
+      label: "Billing",
+      icon: "i-lucide-credit-card",
+      to: "/billing",
+    },
+    {
+      label: "Settings",
+      icon: "i-lucide-settings",
+      to: "/settings",
+      // defaultOpen: true,
+      // children: [
+      //   {
+      //     label: "General",
+      //   },
+      //   {
+      //     label: "Members",
+      //   },
+      //   {
+      //     label: "Notifications",
+      //   },
+      // ],
+    },
+  ];
+
+  if (isAdmin.value) {
+    menu.push({
+      label: "Admin",
+      
+      icon: "i-lucide-shield-check",
+      defaultOpen: true,
+      children: [
+        {
+          label: "Users",
+          icon: "i-lucide-users",
+          to: "/admin/users",
+        },
+        {
+          label: "Settings",
+          icon: "i-lucide-settings-2",
+          to: "/admin/settings",
+        },
+      ],
+    });
+  }
+
+  return menu;
+});
 </script>
 
 <style></style>

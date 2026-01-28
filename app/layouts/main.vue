@@ -21,14 +21,4 @@ const pageTitle = computed(() => {
   return String(route.name);
 });
 
-//   // Convert route name like 'main-dashboard' to 'Dashboard'
-//   const name = String(route.name);
-//   const parts = name.split("-");
-//   const lastPart = parts[parts.length - 1];
-
-//   if (!lastPart) return "";
-
-//   // Capitalize first letter
-//   return lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
-// });
 </script>

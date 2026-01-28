@@ -12,7 +12,9 @@ const protectedRoutes = [
   '/billing',
   '/notifications',
   '/settings',
-  '/site'
+  '/site',
+  '/profile',
+  '/admin'
 ]
 
 // Define las rutas de autenticación (login, register)

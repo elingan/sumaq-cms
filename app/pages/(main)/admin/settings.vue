@@ -1,0 +1,125 @@
+<template>
+  <div class="p-6 space-y-6">
+    <h1 class="text-2xl font-bold">Configuración de Administrador</h1>
+
+    <!-- GitHub Connection Card -->
+    <UCard>
+      <template #header>
+        <div class="flex items-center gap-2">
+          <UIcon name="i-lucide-github" class="size-5" />
+          <h2 class="text-lg font-semibold">Conexión GitHub</h2>
+        </div>
+      </template>
+
+      <!-- Not Connected State -->
+      <div v-if="!githubStatus.connected" class="space-y-4">
+        <p class="text-gray-600 dark:text-gray-400">
+          Conecta tu cuenta de GitHub para acceder a tus repositorios y gestionar proyectos.
+        </p>
+        <UButton
+          color="primary"
+          icon="i-lucide-github"
+          :loading="connecting"
+          @click="connectGitHub"
+        >
+          Conectar GitHub
+        </UButton>
+      </div>
+
+      <!-- Connected State -->
+      <div v-else class="space-y-4">
+        <div class="flex items-center gap-4">
+          <UAvatar
+            :src="githubStatus.avatarUrl!"
+            :alt="githubStatus.login!"
+            size="lg"
+          />
+          <div>
+            <p class="font-semibold">@{{ githubStatus.login }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              Conectado el {{ formatDate(githubStatus.connectedAt!) }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <UButton
+            color="neutral"
+            variant="soft"
+            to="/admin/github/repos"
+          >
+            Ver Repositorios
+          </UButton>
+          <UButton
+            color="red"
+            variant="soft"
+            :loading="disconnecting"
+            @click="disconnectGitHub"
+          >
+            Desconectar
+          </UButton>
+        </div>
+      </div>
+    </UCard>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import type { GitHubConnectionStatus } from '~/types/github'
+
+definePageMeta({
+  layout: 'main',
+})
+
+const connecting = ref(false)
+const disconnecting = ref(false)
+const githubStatus = ref<GitHubConnectionStatus>({
+  connected: false,
+  login: null,
+  avatarUrl: null,
+  connectedAt: null,
+})
+
+// Fetch status on mount
+onMounted(async () => {
+  const data = await $fetch<GitHubConnectionStatus>('/api/github/status')
+  githubStatus.value = data
+
+  // Check URL params for success message
+  const route = useRoute()
+  if (route.query.github === 'connected') {
+    // Could add a toast notification here
+    console.log('GitHub connected successfully!')
+  }
+})
+
+const connectGitHub = () => {
+  connecting.value = true
+  window.location.href = '/api/github/connect'
+}
+
+const disconnectGitHub = async () => {
+  disconnecting.value = true
+  try {
+    await $fetch('/api/github/disconnect', { method: 'POST' })
+    githubStatus.value = {
+      connected: false,
+      login: null,
+      avatarUrl: null,
+      connectedAt: null,
+    }
+  } catch (error) {
+    console.error('Error disconnecting GitHub:', error)
+  } finally {
+    disconnecting.value = false
+  }
+}
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+</script>

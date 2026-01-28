@@ -10,15 +10,18 @@
       <template #right>
         <UColorModeButton />
 
-        <!-- <SignedOut>
+        <SignedOut>
           <UButton to="/login" color="primary" variant="soft">
             Iniciar Sesión
           </UButton>
         </SignedOut>
 
         <SignedIn>
-          <UserButton />
-        </SignedIn> -->
+          <UserButton
+            user-profile-mode="navigation"
+            user-profile-url="/profile"
+          />
+        </SignedIn>
       </template>
     </UHeader>
 
