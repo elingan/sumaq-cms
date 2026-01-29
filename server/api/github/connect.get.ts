@@ -13,38 +13,37 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 403, statusMessage: 'Only admins can connect GitHub' })
   }
 
-  // 3. Generar state y PKCE
+  // 3. Generar state para CSRF protection
   const state = generateOAuthState()
-  const codeVerifier = generateCodeVerifier()
-  const codeChallenge = generateCodeChallenge(codeVerifier)
 
-  // 4. Guardar en cookies seguras
-  setCookie(event, 'github_oauth_state', state, {
+  // 4. Guardar state en cookie segura
+  setCookie(event, 'github_install_state', state, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     maxAge: 600, // 10 minutos
   })
 
-  setCookie(event, 'github_code_verifier', codeVerifier, {
+  // Guardar también el userId para verificar en el callback
+  setCookie(event, 'github_install_user', userId, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     maxAge: 600,
   })
 
-  // 5. Construir URL de GitHub
+  // 5. Construir URL de instalación de GitHub App
+  // Usamos el flujo de autorización que funciona tanto para nuevas instalaciones
+  // como para apps ya instaladas
+  const redirectUri = `${getRequestURL(event).origin}/api/github/callback`
   const params = new URLSearchParams({
     client_id: process.env.GITHUB_CLIENT_ID!,
-    redirect_uri: process.env.GITHUB_REDIRECT_URI!,
-    scope: 'repo,user:email,read:user',
+    redirect_uri: redirectUri,
     state,
-    code_challenge: codeChallenge,
-    code_challenge_method: 'S256',
   })
 
-  const githubAuthUrl = `https://github.com/login/oauth/authorize?${params}`
+  // Redirigir al flujo de autorización de la GitHub App
+  const installUrl = `https://github.com/login/oauth/authorize?${params}`
 
-  // Redirigir
-  return sendRedirect(event, githubAuthUrl)
+  return sendRedirect(event, installUrl)
 })

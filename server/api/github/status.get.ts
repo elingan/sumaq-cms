@@ -1,5 +1,5 @@
 import { clerkClient } from '@clerk/nuxt/server'
-import type { GitHubConnectionStatus } from '~/types/github'
+import type { GitHubConnectionStatus } from '../../../types/github'
 
 export default defineEventHandler(async (event): Promise<GitHubConnectionStatus> => {
   const { userId } = event.context.auth()
@@ -11,9 +11,11 @@ export default defineEventHandler(async (event): Promise<GitHubConnectionStatus>
   const githubData = user.privateMetadata.github as any
 
   return {
-    connected: !!githubData?.accessToken,
-    login: githubData?.login || null,
+    connected: !!githubData?.installationId,
+    login: githubData?.accountLogin || null,
     avatarUrl: githubData?.avatarUrl || null,
     connectedAt: githubData?.connectedAt || null,
+    accountType: githubData?.accountType || null,
+    repositorySelection: githubData?.repositorySelection || null,
   }
 })

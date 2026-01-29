@@ -1,4 +1,5 @@
 import crypto from 'crypto'
+import { App } from '@octokit/app'
 
 const ALGORITHM = 'aes-256-gcm'
 
@@ -40,4 +41,43 @@ export function decryptToken(encryptedData: string): string {
   decrypted += decipher.final('utf8')
 
   return decrypted
+}
+
+// GitHub App instance
+let appInstance: App | null = null
+
+export function getGitHubApp(): App {
+  if (appInstance) return appInstance
+
+  const appId = process.env.GITHUB_APP_ID
+  const privateKey = process.env.GITHUB_PRIVATE_KEY
+  const clientId = process.env.GITHUB_CLIENT_ID
+  const clientSecret = process.env.GITHUB_CLIENT_SECRET
+
+  if (!appId || !privateKey || !clientId || !clientSecret) {
+    throw new Error('GitHub App credentials not configured')
+  }
+
+  appInstance = new App({
+    appId,
+    privateKey: privateKey.replace(/\\n/g, '\n'), // Fix escaped newlines
+    oauth: {
+      clientId,
+      clientSecret,
+    },
+  })
+
+  return appInstance
+}
+
+// Generate installation access token
+export async function getInstallationToken(installationId: number): Promise<string> {
+  const app = getGitHubApp()
+  const octokit = await app.getInstallationOctokit(installationId)
+
+  // This token is automatically generated and managed by Octokit
+  // It's short-lived (1 hour) and refreshed automatically
+  return octokit.auth({
+    type: 'installation',
+  }) as Promise<string>
 }

@@ -37,6 +37,10 @@
           <div>
             <p class="font-semibold">@{{ githubStatus.login }}</p>
             <p class="text-sm text-gray-500 dark:text-gray-400">
+              {{ githubStatus.accountType }} •
+              {{ githubStatus.repositorySelection === 'all' ? 'Todos los repositorios' : 'Repositorios seleccionados' }}
+            </p>
+            <p class="text-xs text-gray-400">
               Conectado el {{ formatDate(githubStatus.connectedAt!) }}
             </p>
           </div>
@@ -49,6 +53,14 @@
             to="/admin/github/repos"
           >
             Ver Repositorios
+          </UButton>
+          <UButton
+            variant="soft"
+            target="_blank"
+            to="https://github.com/settings/installations"
+            external
+          >
+            Configurar Acceso
           </UButton>
           <UButton
             color="red"
@@ -78,6 +90,8 @@ const githubStatus = ref<GitHubConnectionStatus>({
   login: null,
   avatarUrl: null,
   connectedAt: null,
+  accountType: null,
+  repositorySelection: null,
 })
 
 // Fetch status on mount

@@ -1,5 +1,5 @@
 import { clerkClient } from '@clerk/nuxt/server'
-import type { GitHubRepo } from '~/types/github'
+import { getGitHubApp } from '../../utils/encryption'
 
 export default defineEventHandler(async (event) => {
   // 1. Verificar autenticación y rol
@@ -13,40 +13,32 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 403, statusMessage: 'Only admins can access repos' })
   }
 
-  // 2. Obtener y descifrar token
+  // 2. Obtener datos de instalación
   const githubData = user.privateMetadata.github as any
-  if (!githubData?.accessToken) {
+  if (!githubData?.installationId) {
     throw createError({
       statusCode: 404,
-      statusMessage: 'GitHub account not connected'
+      statusMessage: 'GitHub App not installed'
     })
   }
 
-  const accessToken = decryptToken(githubData.accessToken)
+  // 3. Obtener Octokit con installation token
+  const app = getGitHubApp()
+  const octokit = await app.getInstallationOctokit(githubData.installationId)
 
-  // 3. Llamar a GitHub API
+  // 4. Obtener repositorios de la instalación
   const query = getQuery(event)
   const page = parseInt(query.page as string) || 1
   const perPage = parseInt(query.per_page as string) || 30
-  const sort = query.sort as string || 'updated'
-  const affiliation = query.affiliation as string || 'owner,collaborator'
 
-  const repos = await $fetch<GitHubRepo[]>('https://api.github.com/user/repos', {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: 'application/vnd.github.v3+json',
-    },
-    query: {
-      page,
-      per_page: perPage,
-      sort,
-      affiliation,
-    },
+  const { data: { repositories } } = await octokit.request('GET /installation/repositories', {
+    per_page: perPage,
+    page,
   })
 
-  // 4. Retornar datos formateados
+  // 5. Retornar datos formateados
   return {
-    repos: repos.map(repo => ({
+    repos: repositories.map((repo: any) => ({
       id: repo.id,
       name: repo.name,
       fullName: repo.full_name,
@@ -60,10 +52,12 @@ export default defineEventHandler(async (event) => {
     pagination: {
       page,
       perPage,
+      total: repositories.length,
     },
     github: {
-      login: githubData.login,
+      login: githubData.accountLogin,
       avatarUrl: githubData.avatarUrl,
+      repositorySelection: githubData.repositorySelection,
     },
   }
 })

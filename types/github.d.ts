@@ -23,17 +23,18 @@ export interface GitHubConnectionStatus {
   login: string | null
   avatarUrl: string | null
   connectedAt: string | null
+  accountType: string | null
+  repositorySelection: string | null
 }
 
 export interface GitHubMetadata {
-  accessToken: string  // Encrypted
-  tokenType: string
-  scope: string
-  connectedAt: string
-  login: string
-  id: number
+  installationId: number
+  accountLogin: string
+  accountType: 'User' | 'Organization'
   avatarUrl: string
-  name: string
+  repositorySelection: 'all' | 'selected'
+  permissions: Record<string, string>
+  connectedAt: string
 }
 
 // Extend Clerk User types
