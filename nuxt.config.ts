@@ -7,8 +7,29 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/hints',
     '@nuxt/test-utils',
-    '@clerk/nuxt'
+    '@clerk/nuxt',
+    '@nuxthub/core'
   ],
+
+  hub: {
+    db: {
+      dialect: 'postgresql',
+      casing: 'snake_case'
+    },
+    blob: true
+  },
+
+  $production: {
+    hub: {
+      db: {
+        dialect: 'postgresql',
+        driver: 'neon-http'
+      },
+      blob: {
+        driver: 'vercel-blob'
+      }
+    }
+  },
 
   devtools: {
     enabled: true
