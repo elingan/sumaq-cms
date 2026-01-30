@@ -3,34 +3,31 @@
     <UCard class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1 class="text-2xl font-bold">Iniciar Sesión</h1>
+          <h1 class="text-2xl font-bold">
+            Recuperar Contraseña
+          </h1>
           <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Ingresa tus credenciales para acceder
+            Ingresa tu email y te enviaremos un enlace para recuperar tu contraseña
           </p>
         </div>
       </template>
 
       <UAuthForm
+        v-if="!submitted"
         :fields="[
           {
             name: 'email',
             type: 'email',
             label: 'Email',
             placeholder: 'tu@email.com'
-          },
-          {
-            name: 'password',
-            type: 'password',
-            label: 'Contraseña',
-            placeholder: 'Ingresa tu contraseña'
           }
         ]"
         :providers="[]"
         :submit-button="{
-          label: 'Iniciar Sesión',
-          trailingIcon: 'i-heroicons-arrow-right-20-solid'
+          label: 'Enviar Enlace',
+          trailingIcon: 'i-heroicons-paper-airplane-20-solid'
         }"
-        @submit="handleLogin"
+        @submit="handleForgotPassword"
       >
         <template #validation="{ state }">
           <UAlert
@@ -46,14 +43,30 @@
           <div class="text-center text-sm">
             <UButton
               variant="link"
-              to="/forgot-password"
+              to="/login"
               class="text-primary"
             >
-              ¿Olvidaste tu contraseña?
+              Volver al inicio de sesión
             </UButton>
           </div>
         </template>
       </UAuthForm>
+
+      <div v-else class="text-center">
+        <UAlert
+          color="green"
+          variant="soft"
+          title="¡Enlace enviado!"
+          description="Si existe una cuenta con ese email, recibirás un enlace para recuperar tu contraseña."
+          class="mb-4"
+        />
+        <UButton
+          to="/login" variant="outline"
+          class="mt-4"
+        >
+          Volver al inicio de sesión
+        </UButton>
+      </div>
     </UCard>
   </UContainer>
 </template>
@@ -64,22 +77,20 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const router = useRouter()
+const submitted = ref(false)
 
-const handleLogin = async (state: { email: string; password: string }) => {
+const handleForgotPassword = async (state: { email: string }) => {
   try {
-    await $fetch('/api/auth/login', {
+    await $fetch('/api/auth/forgot-password', {
       method: 'POST',
       body: {
-        email: state.email,
-        password: state.password
+        email: state.email
       }
     })
 
-    // Redirect to dashboard
-    await router.push('/dashboard')
+    submitted.value = true
   } catch (error: any) {
-    throw new Error(error.data?.message || 'Error al iniciar sesión')
+    throw new Error(error.data?.message || 'Error al enviar el enlace')
   }
 }
 </script>

@@ -1,20 +1,15 @@
-import { clerkClient } from '@clerk/nuxt/server'
 import { getGitHubApp } from '../../utils/encryption'
 
 export default defineEventHandler(async (event) => {
   // 1. Verificar autenticación y rol
-  const { userId } = event.context.auth()
-  if (!userId) {
-    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
-  }
-
-  const user = await clerkClient(event).users.getUser(userId)
-  if (user.publicMetadata.role !== 'admin') {
+  const session = await requireUserSession(event)
+  
+  if (session.user.role !== 'admin') {
     throw createError({ statusCode: 403, statusMessage: 'Only admins can access repos' })
   }
 
   // 2. Obtener datos de instalación
-  const githubData = user.privateMetadata.github as any
+  const githubData = session.user.githubData
   if (!githubData?.installationId) {
     throw createError({
       statusCode: 404,

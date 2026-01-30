@@ -18,27 +18,22 @@ const protectedRoutes = [
 ]
 
 // Define las rutas de autenticación (login, register)
-const authRoutes = ['/login', '/register']
+const authRoutes = ['/login', '/forgot-password', '/reset-password']
 
-export default defineNuxtRouteMiddleware((to) => {
-  const { isSignedIn, isLoaded } = useAuth()
-
-  // Espera a que Clerk termine de cargar
-  if (!isLoaded.value) {
-    return
-  }
+export default defineNuxtRouteMiddleware(async (to) => {
+  const { loggedIn } = useUserSession()
 
   const currentPath = to.path
 
   // Si el usuario está autenticado y trata de acceder a login/register,
   // redirigir al dashboard
-  if (isSignedIn.value && matchesRoute(currentPath, authRoutes)) {
+  if (loggedIn.value && matchesRoute(currentPath, authRoutes)) {
     return navigateTo('/dashboard')
   }
 
   // Si el usuario NO está autenticado y trata de acceder a una ruta protegida,
   // redirigir al login
-  if (!isSignedIn.value && matchesRoute(currentPath, protectedRoutes)) {
+  if (!loggedIn.value && matchesRoute(currentPath, protectedRoutes)) {
     return navigateTo('/login')
   }
 })

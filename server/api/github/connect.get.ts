@@ -1,15 +1,9 @@
-import { clerkClient } from '@clerk/nuxt/server'
-
 export default defineEventHandler(async (event) => {
   // 1. Verificar autenticación
-  const { userId } = event.context.auth()
-  if (!userId) {
-    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
-  }
+  const session = await requireUserSession(event)
 
   // 2. Verificar rol admin
-  const user = await clerkClient(event).users.getUser(userId)
-  if (user.publicMetadata.role !== 'admin') {
+  if (session.user.role !== 'admin') {
     throw createError({ statusCode: 403, statusMessage: 'Only admins can connect GitHub' })
   }
 
@@ -21,15 +15,15 @@ export default defineEventHandler(async (event) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: 600, // 10 minutos
+    maxAge: 600 // 10 minutos
   })
 
   // Guardar también el userId para verificar en el callback
-  setCookie(event, 'github_install_user', userId, {
+  setCookie(event, 'github_install_user', session.user.id.toString(), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: 600,
+    maxAge: 600
   })
 
   // 5. Construir URL de instalación de GitHub App
@@ -39,7 +33,7 @@ export default defineEventHandler(async (event) => {
   const params = new URLSearchParams({
     client_id: process.env.GITHUB_CLIENT_ID!,
     redirect_uri: redirectUri,
-    state,
+    state
   })
 
   // Redirigir al flujo de autorización de la GitHub App

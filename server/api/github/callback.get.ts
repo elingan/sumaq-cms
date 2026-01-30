@@ -1,5 +1,5 @@
-import { clerkClient } from '@clerk/nuxt/server'
 import { getGitHubApp } from '../../utils/encryption'
+import { eq } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
@@ -34,24 +34,23 @@ export default defineEventHandler(async (event) => {
 
     // Obtener info de la instalación
     const { data: installation } = await octokit.request('GET /app/installations/{installation_id}', {
-      installation_id: parseInt(installationId),
+      installation_id: parseInt(installationId)
     })
 
-    // Guardar en Clerk
-    await clerkClient(event).users.updateUserMetadata(savedUserId, {
-      privateMetadata: {
-        github: {
+    // Guardar en DB
+    const db = useDrizzle()
+    await db
+      .update(tables.users)
+      .set({
+        githubData: {
           installationId: parseInt(installationId),
-          accountLogin: installation.account.login,
-          accountId: installation.account.id,
           accountType: installation.account.type as 'User' | 'Organization',
-          avatarUrl: installation.account.avatar_url,
-          connectedAt: new Date().toISOString(),
-          permissions: installation.permissions,
           repositorySelection: installation.repository_selection,
-        },
-      },
-    })
+          login: installation.account.login,
+          avatarUrl: installation.account.avatar_url
+        }
+      })
+      .where(eq(tables.users.id, parseInt(savedUserId)))
 
     return sendRedirect(event, '/admin/settings?github=connected')
   }
@@ -61,7 +60,7 @@ export default defineEventHandler(async (event) => {
     const app = getGitHubApp()
 
     const { authentication } = await app.oauth.createToken({
-      code,
+      code
     })
 
     const userOctokit = await app.oauth.getUserOctokit({ token: authentication.token })
@@ -80,20 +79,19 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await clerkClient(event).users.updateUserMetadata(savedUserId, {
-      privateMetadata: {
-        github: {
+    const db = useDrizzle()
+    await db
+      .update(tables.users)
+      .set({
+        githubData: {
           installationId: installation.id,
-          accountLogin: installation.account.login,
-          accountId: installation.account.id,
           accountType: installation.account.type as 'User' | 'Organization',
-          avatarUrl: installation.account.avatar_url,
-          connectedAt: new Date().toISOString(),
-          permissions: installation.permissions,
           repositorySelection: installation.repository_selection,
-        },
-      },
-    })
+          login: installation.account.login,
+          avatarUrl: installation.account.avatar_url
+        }
+      })
+      .where(eq(tables.users.id, parseInt(savedUserId)))
 
     return sendRedirect(event, '/admin/settings?github=connected')
   }

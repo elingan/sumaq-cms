@@ -1,17 +1,13 @@
-import { clerkClient } from '@clerk/nuxt/server'
+import { eq } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
-  const { userId } = event.context.auth()
-  if (!userId) {
-    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
-  }
+  const session = await requireUserSession(event)
 
-  const user = await clerkClient(event).users.getUser(userId)
-  if (user.publicMetadata.role !== 'admin') {
+  if (session.user.role !== 'admin') {
     throw createError({ statusCode: 403, statusMessage: 'Forbidden' })
   }
 
-  const githubData = user.privateMetadata.github as any
+  const githubData = session.user.githubData
 
   // Opcional: Desinstalar la app de GitHub (requiere permisos adicionales)
   // if (githubData?.installationId) {
@@ -26,12 +22,12 @@ export default defineEventHandler(async (event) => {
   //   }
   // }
 
-  // Remover datos de GitHub de Clerk
-  await clerkClient(event).users.updateUserMetadata(userId, {
-    privateMetadata: {
-      github: null,
-    },
-  })
+  // Remover datos de GitHub de la base de datos
+  const db = useDrizzle()
+  await db
+    .update(tables.users)
+    .set({ githubData: null })
+    .where(eq(tables.users.id, session.user.id))
 
   return { success: true, message: 'GitHub App disconnected' }
 })

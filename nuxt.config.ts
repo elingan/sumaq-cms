@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/hints',
     '@nuxt/test-utils',
-    '@clerk/nuxt',
+    'nuxt-auth-utils',
     '@nuxthub/core'
   ],
 

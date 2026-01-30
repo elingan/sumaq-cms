@@ -7,4 +7,5 @@ ignoredBuiltDependencies:
 
 onlyBuiltDependencies:
   - '@clerk/shared'
+  - bcrypt
   - sharp
