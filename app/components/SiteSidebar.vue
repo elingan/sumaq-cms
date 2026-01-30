@@ -27,25 +27,25 @@
 </template>
 
 <script lang="ts" setup>
-import type { NavigationMenuItem } from "@nuxt/ui";
+import type { NavigationMenuItem } from '@nuxt/ui';
 
 // const route = useRoute();
 
 const items: NavigationMenuItem[] = computed(() => [
   {
-    label: "Dashboard",
-    icon: "i-lucide-house",
-    to: "/dashboard",
+    label: 'Dashboard',
+    icon: 'i-lucide-house',
+    to: '/dashboard',
   },
   {
-    label: "Billing",
-    icon: "i-lucide-credit-card",
-    to: "/billing",
+    label: 'Billing',
+    icon: 'i-lucide-credit-card',
+    to: '/billing',
   },
   {
-    label: "Settings",
-    icon: "i-lucide-settings",
-    to: "/settings",
+    label: 'Settings',
+    icon: 'i-lucide-settings',
+    to: '/settings',
     // defaultOpen: true,
     // children: [
     //   {

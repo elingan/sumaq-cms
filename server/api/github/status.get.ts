@@ -1,5 +1,5 @@
 import { clerkClient } from '@clerk/nuxt/server'
-import type { GitHubConnectionStatus } from '../../../types/github'
+import type { GitHubConnectionStatus } from '../../../shared/types/github'
 
 export default defineEventHandler(async (event): Promise<GitHubConnectionStatus> => {
   const { userId } = event.context.auth()

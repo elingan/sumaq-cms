@@ -5,10 +5,7 @@
     </template>
     <template #right>
       <SignedIn>
-        <UserButton
-          user-profile-mode="navigation"
-          user-profile-url="/profile"
-        />
+        <UserButton user-profile-mode="navigation" user-profile-url="/profile" />
       </SignedIn>
     </template>
   </UDashboardNavbar>
@@ -17,5 +14,5 @@
 <script lang="ts" setup>
 defineProps<{
   title?: string;
-}>();
+}>()
 </script>

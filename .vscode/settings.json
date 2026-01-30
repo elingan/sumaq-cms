@@ -1,3 +1,21 @@
 {
-    "chat.agent.maxRequests": 500,
+  "chat.agent.maxRequests": 500,
+  // "prettier.experimentalTernaries": true,
+  // "prettier.printWidth": 120,
+  // "prettier.semi": false,
+  // "prettier.singleAttributePerLine": false,
+  // "prettier.singleQuote": true,
+  // "prettier.vueIndentScriptAndStyle": true,
+  // "prettier.tabWidth": 2,
+  // "editor.tabSize": 2,
+  // "editor.detectIndentation": false,
+  // "[vue]": {
+  //   "editor.tabSize": 2
+  // },
+  // "eslint.format.enable": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "eslint.validate": ["javascript", "typescript", "vue"]
 }

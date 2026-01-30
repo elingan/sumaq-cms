@@ -1,5 +1,3 @@
-import type { GitHubConnectionStatus } from '~/types/github'
-
 export const useGitHub = () => {
   const connected = ref(false)
   const loading = ref(false)
@@ -16,7 +14,7 @@ export const useGitHub = () => {
       if (data.connected && data.login) {
         githubUser.value = {
           login: data.login,
-          avatarUrl: data.avatarUrl!,
+          avatarUrl: data.avatarUrl!
         }
       }
     } catch (error) {
@@ -47,6 +45,6 @@ export const useGitHub = () => {
     githubUser,
     checkConnection,
     connect,
-    disconnect,
+    disconnect
   }
 }
