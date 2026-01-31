@@ -3,7 +3,7 @@ import { getGitHubApp } from '../../utils/encryption'
 export default defineEventHandler(async (event) => {
   // 1. Verificar autenticación y rol
   const session = await requireUserSession(event)
-  
+
   if (session.user.role !== 'admin') {
     throw createError({ statusCode: 403, statusMessage: 'Only admins can access repos' })
   }

@@ -15,7 +15,7 @@
     "test:nuxt": "vitest --project nuxt",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "cleanup": "nuxt cleanup"
+    "clean": "nuxt cleanup"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.3.15",

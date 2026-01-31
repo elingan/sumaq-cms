@@ -1,9 +1,9 @@
-import { pgEnum, pgTable, serial, text, timestamp, jsonb, uuid } from 'drizzle-orm/pg-core'
+import { integer, pgEnum, pgTable, serial, text, timestamp, jsonb } from 'drizzle-orm/pg-core'
 
 export const userRoleEnum = pgEnum('user_role', ['admin', 'owner', 'partner', 'editor'])
 
 export const users = pgTable('users', {
-  id: uuid('id').primaryKey().defaultRandom(),
+  id: serial('id').primaryKey(),
   email: text('email').notNull().unique(),
   password: text('password').notNull(),
   name: text('name'),
@@ -15,7 +15,7 @@ export const users = pgTable('users', {
 
 export const auditLogs = pgTable('audit_logs', {
   id: serial('id').primaryKey(),
-  userId: uuid('user_id').references(() => users.id),
+  userId: integer('user_id').references(() => users.id),
   action: text('action').notNull(),
   details: jsonb('details'),
   ipAddress: text('ip_address'),
@@ -25,7 +25,7 @@ export const auditLogs = pgTable('audit_logs', {
 
 export const passwordResets = pgTable('password_resets', {
   id: serial('id').primaryKey(),
-  userId: uuid('user_id').notNull().references(() => users.id),
+  userId: integer('user_id').notNull().references(() => users.id),
   token: text('token').notNull().unique(),
   expiresAt: timestamp('expires_at').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()

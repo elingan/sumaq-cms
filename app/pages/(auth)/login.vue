@@ -3,7 +3,9 @@
     <UCard class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1 class="text-2xl font-bold">Iniciar Sesión</h1>
+          <h1 class="text-2xl font-bold">
+            Iniciar Sesión
+          </h1>
           <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Ingresa tus credenciales para acceder
           </p>
@@ -11,28 +13,18 @@
       </template>
 
       <UAuthForm
-        :fields="[
-          {
-            name: 'email',
-            type: 'email',
-            label: 'Email',
-            placeholder: 'tu@email.com'
-          },
-          {
-            name: 'password',
-            type: 'password',
-            label: 'Contraseña',
-            placeholder: 'Ingresa tu contraseña'
-          }
-        ]"
-        :providers="[]"
+        title="Login"
+        description="Enter your credentials to access your account."
+        icon="i-lucide-user"
+        :schema="schema"
+        :fields="fields"
         :submit-button="{
           label: 'Iniciar Sesión',
           trailingIcon: 'i-heroicons-arrow-right-20-solid'
         }"
         @submit="handleLogin"
       >
-        <template #validation="{ state }">
+        <!-- <template #validation="{ state }">
           <UAlert
             v-if="state.error"
             color="red"
@@ -40,9 +32,9 @@
             :title="state.error"
             class="mb-4"
           />
-        </template>
+        </template> -->
 
-        <template #footer>
+        <!-- <template #footer>
           <div class="text-center text-sm">
             <UButton
               variant="link"
@@ -52,27 +44,56 @@
               ¿Olvidaste tu contraseña?
             </UButton>
           </div>
-        </template>
+        </template> -->
       </UAuthForm>
     </UCard>
   </UContainer>
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-  middleware: 'auth'
-})
+import * as z from 'zod'
+import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
+
+const toast = useToast()
 
 const router = useRouter()
 
-const handleLogin = async (state: { email: string; password: string }) => {
+const fields: AuthFormField [] = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'tu@email.com',
+    required: true
+  },
+  {
+    name: 'password',
+    type: 'password',
+    label: 'Contraseña',
+    placeholder: 'Ingresa tu contraseña',
+    required: true
+  },
+  {
+    name: 'remember',
+    label: 'Remember me',
+    type: 'checkbox'
+  }
+]
+const schema = z.object({
+  email: z.string().email('Invalid email'),
+  password: z.string().min(8, 'Password is required').min(8, 'Must be at least 8 characters')
+})
+
+type Schema = z.output<typeof schema>
+
+const handleLogin = async (payload: FormSubmitEvent<Schema>) => {
   try {
+    console.log(payload)
     await $fetch('/api/auth/login', {
       method: 'POST',
       body: {
-        email: state.email,
-        password: state.password
+        email: payload.data.email,
+        password: payload.data.password
       }
     })
 

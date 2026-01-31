@@ -11,14 +11,6 @@ export default defineNuxtConfig({
     '@nuxthub/core'
   ],
 
-  hub: {
-    db: {
-      dialect: 'postgresql',
-      casing: 'snake_case'
-    },
-    blob: true
-  },
-
   $production: {
     hub: {
       db: {
@@ -42,6 +34,14 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2025-01-15',
+
+  hub: {
+    db: {
+      dialect: 'postgresql',
+      casing: 'snake_case'
+    },
+    blob: true
+  },
 
   eslint: {
     config: {

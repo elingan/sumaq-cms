@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const userId = parseInt(event.context.params!.id)
+    const userId = event.context.params!.id
 
     // Prevent deleting yourself
     if (userId === session.user.id) {

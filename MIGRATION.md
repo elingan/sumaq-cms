@@ -131,8 +131,8 @@ To enable actual emails:
 ## File Changes Summary
 
 ### New Files (16)
-- `server/database/schema.ts` - Drizzle ORM schema
-- `server/database/migrations/0001_create_users_table.sql` - Initial migration
+- `server/db/schema.ts` - Drizzle ORM schema
+- `server/db/migrations/0001_create_users_table.sql` - Initial migration
 - `server/utils/password.ts` - Password hashing utilities
 - `server/utils/audit.ts` - Audit logging helper
 - `server/api/auth/*.ts` - 5 authentication endpoints

@@ -1,8 +1,14 @@
+-- Drop existing tables and recreate with UUID
+DROP TABLE IF EXISTS password_resets CASCADE;
+DROP TABLE IF EXISTS audit_logs CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TYPE IF EXISTS user_role CASCADE;
+
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Create user_role enum type
-CREATE TYPE user_role AS ENUM ('admin', 'owner', 'editor');
+CREATE TYPE user_role AS ENUM ('admin', 'owner', 'partner', 'editor');
 
 -- Create users table
 CREATE TABLE users (

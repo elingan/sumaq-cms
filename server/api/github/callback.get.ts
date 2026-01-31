@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
           avatarUrl: installation.account.avatar_url
         }
       })
-      .where(eq(tables.users.id, parseInt(savedUserId)))
+      .where(eq(tables.users.id, savedUserId))
 
     return sendRedirect(event, '/admin/settings?github=connected')
   }
@@ -91,7 +91,7 @@ export default defineEventHandler(async (event) => {
           avatarUrl: installation.account.avatar_url
         }
       })
-      .where(eq(tables.users.id, parseInt(savedUserId)))
+      .where(eq(tables.users.id, savedUserId))
 
     return sendRedirect(event, '/admin/settings?github=connected')
   }
