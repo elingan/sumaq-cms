@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { randomBytes } from 'crypto'
+import { db, schema } from '@nuxthub/db'
 
 const forgotPasswordSchema = z.object({
   email: z.string().email()
@@ -10,14 +11,10 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const { email } = forgotPasswordSchema.parse(body)
 
-  const db = useDrizzle()
-
   // Find user by email
-  const [user] = await db
-    .select()
-    .from(tables.users)
-    .where(eq(tables.users.email, email))
-    .limit(1)
+  const user = await db.query.users.findFirst({
+    where: eq(schema.users.email, email)
+  })
 
   // Always return success even if user not found (security best practice)
   if (!user) {
@@ -29,7 +26,7 @@ export default defineEventHandler(async (event) => {
   const expiresAt = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
   // Store reset token
-  await db.insert(tables.passwordResets).values({
+  await db.insert(schema.passwordResets).values({
     userId: user.id,
     token,
     expiresAt

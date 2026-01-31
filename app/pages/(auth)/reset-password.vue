@@ -14,28 +14,14 @@
 
       <UAuthForm
         v-if="!success"
-        :fields="[
-          {
-            name: 'password',
-            type: 'password',
-            label: 'Nueva Contraseña',
-            placeholder: 'Ingresa tu nueva contraseña'
-          },
-          {
-            name: 'confirmPassword',
-            type: 'password',
-            label: 'Confirmar Contraseña',
-            placeholder: 'Confirma tu nueva contraseña'
-          }
-        ]"
-        :providers="[]"
+        :fields="fields"
         :submit-button="{
           label: 'Restablecer Contraseña',
           trailingIcon: 'i-heroicons-check-20-solid'
         }"
         @submit="handleResetPassword"
       >
-        <template #validation="{ state }">
+        <!-- <template #validation="{ state }">
           <UAlert
             v-if="state.error"
             color="red"
@@ -43,7 +29,7 @@
             :title="state.error"
             class="mb-4"
           />
-        </template>
+        </template> -->
       </UAuthForm>
 
       <div v-else class="text-center">
@@ -66,13 +52,37 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-  middleware: 'auth'
-})
+import * as z from 'zod'
+import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
+
+const toast = useToast()
 
 const route = useRoute()
 const token = route.query.token as string
+
+const fields: AuthFormField [] = [
+  {
+    name: 'password',
+    type: 'password',
+    label: 'Nueva Contraseña',
+    placeholder: 'Ingresa tu nueva contraseña',
+    required: true
+  },
+  {
+    name: 'confirmPassword',
+    type: 'password',
+    label: 'Confirmar Contraseña',
+    placeholder: 'Confirma tu nueva contraseña',
+    required: true
+  }
+]
+
+const schema = z.object({
+  password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
+  confirmPassword: z.string().min(6, 'La confirmación de la contraseña debe tener al menos 6 caracteres')
+})
+
+type Schema = z.output<typeof schema>
 
 const success = ref(false)
 
@@ -80,8 +90,8 @@ if (!token) {
   navigateTo('/login')
 }
 
-const handleResetPassword = async (state: { password: string, confirmPassword: string }) => {
-  if (state.password !== state.confirmPassword) {
+const handleResetPassword = async (payload: FormSubmitEvent<Schema>) => {
+  if (payload.data.password !== payload.data.confirmPassword) {
     throw new Error('Las contraseñas no coinciden')
   }
 
@@ -90,12 +100,22 @@ const handleResetPassword = async (state: { password: string, confirmPassword: s
       method: 'POST',
       body: {
         token,
-        password: state.password
+        password: payload.data.password
       }
+    })
+    toast.add({
+      title: 'Éxito',
+      description: 'Tu contraseña ha sido restablecida exitosamente.',
+      color: 'success'
     })
 
     success.value = true
   } catch (error: any) {
+    toast.add({
+      title: 'Error',
+      description: error.data?.message || 'Error al restablecer la contraseña',
+      color: 'error'
+    })
     throw new Error(error.data?.message || 'Error al restablecer la contraseña')
   }
 }

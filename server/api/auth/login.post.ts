@@ -24,7 +24,8 @@ export default defineEventHandler(async (event) => {
   }
 
   // Verify password
-  const isValidPassword = await verifyPassword(password, user.password)
+  const isValidPassword = await verifyPassword(user.password, password)
+
   if (!isValidPassword) {
     throw createError({
       statusCode: 401,

@@ -14,22 +14,15 @@
 
       <UAuthForm
         v-if="!submitted"
-        :fields="[
-          {
-            name: 'email',
-            type: 'email',
-            label: 'Email',
-            placeholder: 'tu@email.com'
-          }
-        ]"
-        :providers="[]"
+        :fields="fields"
+        :schema="schema"
         :submit-button="{
           label: 'Enviar Enlace',
           trailingIcon: 'i-heroicons-paper-airplane-20-solid'
         }"
         @submit="handleForgotPassword"
       >
-        <template #validation="{ state }">
+        <!-- <template #validation="{ state }">
           <UAlert
             v-if="state.error"
             color="red"
@@ -37,7 +30,7 @@
             :title="state.error"
             class="mb-4"
           />
-        </template>
+        </template> -->
 
         <template #footer>
           <div class="text-center text-sm">
@@ -72,24 +65,49 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-  middleware: 'auth'
+import * as z from 'zod'
+import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
+
+const toast = useToast()
+
+const fields: AuthFormField [] = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'tu@email.com'
+  }
+]
+
+const schema = z.object({
+  email: z.string().email('Invalid email')
 })
+
+type Schema = z.output<typeof schema>
 
 const submitted = ref(false)
 
-const handleForgotPassword = async (state: { email: string }) => {
+const handleForgotPassword = async (payload: FormSubmitEvent<Schema>) => {
   try {
     await $fetch('/api/auth/forgot-password', {
       method: 'POST',
       body: {
-        email: state.email
+        email: payload.data.email
       }
+    })
+    toast.add({
+      title: 'Éxito',
+      description: 'Si existe una cuenta con ese email, recibirás un enlace para recuperar tu contraseña.',
+      color: 'success'
     })
 
     submitted.value = true
   } catch (error: any) {
+    toast.add({
+      title: 'Error',
+      description: error.data?.message || 'Error al enviar el enlace',
+      color: 'error'
+    })
     throw new Error(error.data?.message || 'Error al enviar el enlace')
   }
 }

@@ -11,7 +11,7 @@ config({ path: join(__dirname, '../.env') })
 
 // Read the migration file
 const migrationSQL = readFileSync(
-    join(__dirname, '../server/database/migrations/0002_migrate_to_uuid.sql'),
+    join(__dirname, '../server/db/migrations/0002_migrate_to_uuid.sql'),
     'utf-8'
 )
 

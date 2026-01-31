@@ -1,7 +1,7 @@
 <template>
   <UContainer class="flex min-h-screen items-center justify-center">
     <UCard class="w-full max-w-md">
-      <template #header>
+      <!-- <template #header>
         <div class="text-center">
           <h1 class="text-2xl font-bold">
             Iniciar Sesión
@@ -10,7 +10,7 @@
             Ingresa tus credenciales para acceder
           </p>
         </div>
-      </template>
+      </template> -->
 
       <UAuthForm
         title="Login"
@@ -24,17 +24,17 @@
         }"
         @submit="handleLogin"
       >
-        <!-- <template #validation="{ state }">
-          <UAlert
+        <template #validation>
+          <!-- <UAlert
             v-if="state.error"
             color="red"
             variant="soft"
             :title="state.error"
             class="mb-4"
-          />
-        </template> -->
+          /> -->
+        </template>
 
-        <!-- <template #footer>
+        <template #footer>
           <div class="text-center text-sm">
             <UButton
               variant="link"
@@ -44,7 +44,7 @@
               ¿Olvidaste tu contraseña?
             </UButton>
           </div>
-        </template> -->
+        </template>
       </UAuthForm>
     </UCard>
   </UContainer>
@@ -96,10 +96,14 @@ const handleLogin = async (payload: FormSubmitEvent<Schema>) => {
         password: payload.data.password
       }
     })
-
     // Redirect to dashboard
     await router.push('/dashboard')
   } catch (error: any) {
+    toast.add({
+      title: 'Error',
+      description: error.data?.message || 'Error al iniciar sesión',
+      color: 'error'
+    })
     throw new Error(error.data?.message || 'Error al iniciar sesión')
   }
 }

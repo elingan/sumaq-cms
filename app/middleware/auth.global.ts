@@ -1,6 +1,6 @@
 // Helper para verificar si una ruta coincide con un patrón
 function matchesRoute(path: string, patterns: string[]): boolean {
-  return patterns.some(pattern => {
+  return patterns.some((pattern) => {
     const regex = new RegExp(pattern.replace('(.*)', '.*'))
     return regex.test(path)
   })
@@ -24,6 +24,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const { loggedIn } = useUserSession()
 
   const currentPath = to.path
+
+  console.log(loggedIn.value, currentPath)
 
   // Si el usuario está autenticado y trata de acceder a login/register,
   // redirigir al dashboard

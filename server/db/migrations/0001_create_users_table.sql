@@ -1,9 +1,12 @@
+-- Enable UUID extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- Create user_role enum type
 CREATE TYPE user_role AS ENUM ('admin', 'owner', 'editor');
 
 -- Create users table
 CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   email TEXT NOT NULL UNIQUE,
   password TEXT NOT NULL,
   name TEXT,
@@ -16,7 +19,7 @@ CREATE TABLE users (
 -- Create audit_logs table
 CREATE TABLE audit_logs (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id),
+  user_id UUID REFERENCES users(id),
   action TEXT NOT NULL,
   details JSONB,
   ip_address TEXT,
@@ -27,7 +30,7 @@ CREATE TABLE audit_logs (
 -- Create password_resets table
 CREATE TABLE password_resets (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL REFERENCES users(id),
+  user_id UUID NOT NULL REFERENCES users(id),
   token TEXT NOT NULL UNIQUE,
   expires_at TIMESTAMP NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW()

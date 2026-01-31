@@ -1,15 +1,13 @@
-import { eq } from 'drizzle-orm'
 import type { H3Event } from 'h3'
+import { db, schema } from '@nuxthub/db'
 
 export async function createAuditLog(
-  userId: number | null,
+  userId: string | null,
   action: string,
   details?: Record<string, any>,
   event?: H3Event
 ) {
-  const db = useDrizzle()
-
-  await db.insert(tables.auditLogs).values({
+  await db.insert(schema.auditLogs).values({
     userId,
     action,
     details: details || null,
