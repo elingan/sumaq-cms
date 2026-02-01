@@ -10,11 +10,12 @@
     </template>
 
     <template #footer="{ collapsed }">
+      <LanguageSwitcher v-if="!collapsed" class="mb-2" />
       <p v-if="!collapsed" class="text-sm text-muted">
-        Sumaq • © {{ new Date().getFullYear() }}
+        {{ $t('common.copyrightFull', { year: new Date().getFullYear() }) }}
       </p>
       <p v-else class="text-sm text-muted">
-        © {{ new Date().getFullYear() }}
+        {{ $t('common.copyright', { year: new Date().getFullYear() }) }}
       </p>
     </template>
   </UDashboardSidebar>
@@ -23,22 +24,23 @@
 <script lang="ts" setup>
 import type { NavigationMenuItem } from '@nuxt/ui'
 
+const { t } = useI18n()
 const { isAdmin } = useRole()
 
 const items = computed(() => {
   const menu: NavigationMenuItem[] = [
     {
-      label: 'Dashboard',
+      label: t('nav.dashboard'),
       icon: 'i-lucide-house',
       to: '/dashboard'
     },
     {
-      label: 'Billing',
+      label: t('nav.billing'),
       icon: 'i-lucide-credit-card',
       to: '/billing'
     },
     {
-      label: 'Settings',
+      label: t('nav.settings'),
       icon: 'i-lucide-settings',
       to: '/settings'
       // defaultOpen: true,
@@ -58,18 +60,18 @@ const items = computed(() => {
 
   if (isAdmin.value) {
     menu.push({
-      label: 'Admin',
+      label: t('nav.admin'),
 
       icon: 'i-lucide-shield-check',
       defaultOpen: true,
       children: [
         {
-          label: 'Users',
+          label: t('nav.users'),
           icon: 'i-lucide-users',
           to: '/admin/users'
         },
         {
-          label: 'Settings',
+          label: t('nav.settings'),
           icon: 'i-lucide-settings-2',
           to: '/admin/settings'
         }

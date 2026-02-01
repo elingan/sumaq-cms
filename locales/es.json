@@ -1,0 +1,203 @@
+{
+  "common": {
+    "appName": "Sumaq Sites",
+    "loading": "Cargando...",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "submit": "Enviar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "back": "Volver",
+    "next": "Siguiente",
+    "copyright": "© {year}",
+    "copyrightFull": "Sumaq • © {year}",
+    "builtWith": "Construido con Nuxt UI • © {year}",
+    "noName": "Sin Nombre",
+    "never": "Nunca"
+  },
+
+  "nav": {
+    "dashboard": "Panel",
+    "billing": "Facturación",
+    "settings": "Configuración",
+    "profile": "Perfil",
+    "notifications": "Notificaciones",
+    "admin": "Administración",
+    "users": "Usuarios",
+    "adminSettings": "Configuración de Administrador"
+  },
+
+  "auth": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "subtitle": "Ingresa tus credenciales para acceder a tu cuenta.",
+      "submitButton": "Iniciar Sesión",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "rememberMe": "Recordarme",
+      "success": "Sesión iniciada exitosamente",
+      "error": "Error al iniciar sesión"
+    },
+    "forgotPassword": {
+      "title": "Recuperar Contraseña",
+      "subtitle": "Ingresa tu email y te enviaremos un enlace para recuperar tu contraseña",
+      "submitButton": "Enviar Enlace",
+      "backToLogin": "Volver al inicio de sesión",
+      "successTitle": "¡Enlace enviado!",
+      "successMessage": "Si existe una cuenta con ese email, recibirás un enlace para recuperar tu contraseña.",
+      "errorTitle": "Error",
+      "errorMessage": "Error al enviar el enlace"
+    },
+    "resetPassword": {
+      "title": "Nueva Contraseña",
+      "subtitle": "Ingresa tu nueva contraseña",
+      "submitButton": "Restablecer Contraseña",
+      "successTitle": "¡Contraseña restablecida!",
+      "successMessage": "Tu contraseña ha sido actualizada exitosamente.",
+      "loginButton": "Iniciar Sesión",
+      "errorTitle": "Error",
+      "errorMessage": "Error al restablecer la contraseña"
+    },
+    "logout": "Cerrar Sesión",
+    "email": "Email",
+    "password": "Contraseña",
+    "newPassword": "Nueva Contraseña",
+    "confirmPassword": "Confirmar Contraseña"
+  },
+
+  "form": {
+    "emailPlaceholder": "tu@email.com",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "newPasswordPlaceholder": "Ingresa tu nueva contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu nueva contraseña"
+  },
+
+  "validation": {
+    "invalidEmail": "Email inválido",
+    "required": "{field} es requerido",
+    "passwordRequired": "La contraseña es requerida",
+    "minLength": "Debe tener al menos {count} carácter | Debe tener al menos {count} caracteres",
+    "minPasswordLength": "La contraseña debe tener al menos {count} carácter | La contraseña debe tener al menos {count} caracteres",
+    "minConfirmPasswordLength": "La confirmación de la contraseña debe tener al menos {count} carácter | La confirmación de la contraseña debe tener al menos {count} caracteres",
+    "passwordsMismatch": "Las contraseñas no coinciden"
+  },
+
+  "admin": {
+    "settings": {
+      "title": "Configuración de Administrador",
+      "github": {
+        "title": "Conexión GitHub",
+        "subtitle": "Conecta tu cuenta de GitHub para acceder a tus repositorios y gestionar proyectos.",
+        "connectButton": "Conectar GitHub",
+        "username": "@{username}",
+        "allRepos": "Todos los repositorios",
+        "selectedRepos": "Repositorios seleccionados",
+        "connectedOn": "Conectado el {date}",
+        "viewRepos": "Ver Repositorios",
+        "configureAccess": "Configurar Acceso",
+        "disconnect": "Desconectar"
+      }
+    },
+    "users": {
+      "title": "Gestión de Usuarios",
+      "accessDenied": "Acceso Denegado",
+      "accessDeniedMessage": "No tienes permiso para ver esta página."
+    },
+    "github": {
+      "repos": {
+        "title": "Mis Repositorios de GitHub",
+        "subtitle": "Gestiona y asigna repositorios a usuarios",
+        "searchPlaceholder": "Buscar repositorios...",
+        "filterAll": "Todos",
+        "filterPublic": "Públicos",
+        "filterPrivate": "Privados",
+        "noReposFound": "No se encontraron repositorios",
+        "noDescription": "Sin descripción",
+        "viewOnGithub": "Ver en GitHub"
+      }
+    }
+  },
+
+  "site": {
+    "title": "Sitio",
+    "onboarding": "Incorporación del Sitio",
+    "storage": "Almacenamiento del Sitio",
+    "summary": "Resumen del Sitio"
+  },
+
+  "templates": {
+    "starter": "Inicial",
+    "landing": "Página de Destino",
+    "docs": "Documentación",
+    "saas": "SaaS",
+    "dashboard": "Panel",
+    "chat": "Chat",
+    "portfolio": "Portafolio",
+    "changelog": "Registro de Cambios"
+  },
+
+  "pages": {
+    "dashboard": {
+      "title": "Panel",
+      "content": "Contenido del panel"
+    },
+    "billing": {
+      "title": "Facturación",
+      "content": "Contenido de facturación"
+    },
+    "settings": {
+      "title": "Configuración",
+      "content": "Contenido de configuración"
+    },
+    "notifications": {
+      "title": "Notificaciones"
+    },
+    "profile": {
+      "title": "Perfil"
+    }
+  },
+
+  "plurals": {
+    "user": "sin usuarios | un usuario | {count} usuarios",
+    "repository": "sin repositorios | un repositorio | {count} repositorios",
+    "star": "{n} estrella | {n} estrellas",
+    "day": "{n} día | {n} días",
+    "hour": "{n} hora | {n} horas",
+    "minute": "{n} minuto | {n} minutos",
+    "notification": "sin notificaciones | una notificación | {count} notificaciones",
+    "item": "sin elementos | un elemento | {count} elementos",
+    "file": "sin archivos | un archivo | {count} archivos",
+    "member": "sin miembros | un miembro | {count} miembros",
+    "site": "sin sitios | un sitio | {count} sitios"
+  },
+
+  "time": {
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "daysAgo": "Hace {n} día | Hace {n} días",
+    "updated": "Actualizado",
+    "updatedOn": "Actualizado: {date}"
+  },
+
+  "errors": {
+    "generic": "Ocurrió un error",
+    "notFound": "No encontrado",
+    "unauthorized": "No autorizado",
+    "forbidden": "Prohibido",
+    "serverError": "Error del servidor"
+  },
+
+  "status": {
+    "success": "Éxito",
+    "error": "Error",
+    "warning": "Advertencia",
+    "info": "Información"
+  }
+}

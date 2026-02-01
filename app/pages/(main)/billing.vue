@@ -1,5 +1,5 @@
 <template>
-  <div>Billing content</div>
+  <div>{{ $t('pages.billing.content') }}</div>
 </template>
 
 <script lang="ts" setup>

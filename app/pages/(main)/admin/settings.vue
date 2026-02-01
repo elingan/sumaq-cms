@@ -1,7 +1,7 @@
 <template>
   <div class="p-6 space-y-6">
     <h1 class="text-2xl font-bold">
-      Configuración de Administrador
+      {{ $t('admin.settings.title') }}
     </h1>
 
     <!-- GitHub Connection Card -->
@@ -10,7 +10,7 @@
         <div class="flex items-center gap-2">
           <UIcon name="i-lucide-github" class="size-5" />
           <h2 class="text-lg font-semibold">
-            Conexión GitHub
+            {{ $t('admin.settings.github.title') }}
           </h2>
         </div>
       </template>
@@ -18,13 +18,13 @@
       <!-- Not Connected State -->
       <div v-if="!githubStatus.connected" class="space-y-4">
         <p class="text-gray-600 dark:text-gray-400">
-          Conecta tu cuenta de GitHub para acceder a tus repositorios y gestionar proyectos.
+          {{ $t('admin.settings.github.subtitle') }}
         </p>
         <UButton
           color="primary" icon="i-lucide-github"
           :loading="connecting" @click="connectGitHub"
         >
-          Conectar GitHub
+          {{ $t('admin.settings.github.connectButton') }}
         </UButton>
       </div>
 
@@ -37,14 +37,14 @@
           />
           <div>
             <p class="font-semibold">
-              @{{ githubStatus.login }}
+              {{ $t('admin.settings.github.username', { username: githubStatus.login }) }}
             </p>
             <p class="text-sm text-gray-500 dark:text-gray-400">
               {{ githubStatus.accountType }} •
-              {{ githubStatus.repositorySelection === 'all' ? 'Todos los repositorios' : 'Repositorios seleccionados' }}
+              {{ githubStatus.repositorySelection === 'all' ? $t('admin.settings.github.allRepos') : $t('admin.settings.github.selectedRepos') }}
             </p>
             <p class="text-xs text-gray-400">
-              Conectado el {{ formatDate(githubStatus.connectedAt!) }}
+              {{ $t('admin.settings.github.connectedOn', { date: $d(new Date(githubStatus.connectedAt!), 'long') }) }}
             </p>
           </div>
         </div>
@@ -54,19 +54,19 @@
             color="neutral" variant="soft"
             to="/admin/github/repos"
           >
-            Ver Repositorios
+            {{ $t('admin.settings.github.viewRepos') }}
           </UButton>
           <UButton
             variant="soft" target="_blank"
             to="https://github.com/settings/installations" external
           >
-            Configurar Acceso
+            {{ $t('admin.settings.github.configureAccess') }}
           </UButton>
           <UButton
             color="red" variant="soft"
             :loading="disconnecting" @click="disconnectGitHub"
           >
-            Desconectar
+            {{ $t('admin.settings.github.disconnect') }}
           </UButton>
         </div>
       </div>

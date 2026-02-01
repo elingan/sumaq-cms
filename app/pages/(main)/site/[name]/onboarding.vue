@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Site Onboarding</h1>
+    <h1>{{ $t('site.onboarding') }}</h1>
   </div>
 </template>
 

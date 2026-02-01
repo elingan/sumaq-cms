@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Site Storage</h1>
+    <h1>{{ $t('site.storage') }}</h1>
   </div>
 </template>
 

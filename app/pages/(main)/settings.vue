@@ -1,5 +1,5 @@
 <template>
-  <div>Settings content</div>
+  <div>{{ $t('pages.settings.content') }}</div>
 </template>
 
 <script lang="ts" setup>

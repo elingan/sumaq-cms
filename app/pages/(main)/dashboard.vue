@@ -1,5 +1,5 @@
 <template>
-  <div>Dashboard content</div>
+  <div>{{ $t('pages.dashboard.content') }}</div>
 </template>
 
 <script lang="ts" setup>

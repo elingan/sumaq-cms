@@ -4,10 +4,10 @@
     <div class="flex items-center justify-between">
       <div>
         <h1 class="text-2xl font-bold">
-          Mis Repositorios de GitHub
+          {{ $t('admin.github.repos.title') }}
         </h1>
         <p class="text-gray-500 dark:text-gray-400">
-          Gestiona y asigna repositorios a usuarios
+          {{ $t('admin.github.repos.subtitle') }}
         </p>
       </div>
       <div
@@ -19,7 +19,7 @@
           :alt="data.github.login"
           size="sm"
         />
-        <span class="text-sm text-gray-500 dark:text-gray-400">@{{ data.github.login }}</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('admin.settings.github.username', { username: data.github.login }) }}</span>
       </div>
     </div>
 
@@ -27,14 +27,14 @@
     <div class="flex gap-4">
       <UInput
         v-model="search"
-        placeholder="Buscar repositorios..."
+        :placeholder="$t('admin.github.repos.searchPlaceholder')"
         icon="i-lucide-search"
         class="flex-1"
       />
       <USelect
         v-model="filter"
         :options="filterOptions"
-        placeholder="Filtrar"
+        :placeholder="$t('common.filter')"
       />
     </div>
 
@@ -59,7 +59,7 @@
         class="size-12 text-gray-400 mx-auto"
       />
       <p class="mt-4 text-gray-500 dark:text-gray-400">
-        No se encontraron repositorios
+        {{ $t('admin.github.repos.noReposFound') }}
       </p>
     </div>
 
@@ -91,7 +91,7 @@
               </UBadge>
             </div>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              {{ repo.description || 'Sin descripción' }}
+              {{ repo.description || $t('admin.github.repos.noDescription') }}
             </p>
             <div class="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
               <span class="flex items-center gap-1">
@@ -99,10 +99,10 @@
                   name="i-lucide-star"
                   class="size-3"
                 />
-                {{ repo.stars }}
+                {{ $tc('plurals.star', repo.stars, { n: repo.stars }) }}
               </span>
               <span>
-                Actualizado: {{ formatDate(repo.updatedAt) }}
+                {{ $t('time.updatedOn', { date: formatDate(repo.updatedAt) }) }}
               </span>
             </div>
           </div>
@@ -115,7 +115,7 @@
               :to="repo.url"
               target="_blank"
             >
-              Ver en GitHub
+              {{ $t('admin.github.repos.viewOnGithub') }}
             </UButton>
           </div>
         </div>
@@ -129,13 +129,15 @@ definePageMeta({
   layout: 'main'
 })
 
+const { t, tc } = useI18n()
+
 const search = ref('')
 const filter = ref('all')
-const filterOptions = [
-  { label: 'Todos', value: 'all' },
-  { label: 'Públicos', value: 'public' },
-  { label: 'Privados', value: 'private' }
-]
+const filterOptions = computed(() => [
+  { label: t('admin.github.repos.filterAll'), value: 'all' },
+  { label: t('admin.github.repos.filterPublic'), value: 'public' },
+  { label: t('admin.github.repos.filterPrivate'), value: 'private' }
+])
 
 const { data, pending } = await useFetch('/api/github/repos', {
   query: {
@@ -173,14 +175,10 @@ const formatDate = (dateString: string) => {
   const diffMs = now.getTime() - date.getTime()
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
 
-  if (diffDays === 0) return 'Hoy'
-  if (diffDays === 1) return 'Ayer'
-  if (diffDays < 30) return `Hace ${diffDays} días`
+  if (diffDays === 0) return t('time.today')
+  if (diffDays === 1) return t('time.yesterday')
+  if (diffDays < 30) return tc('time.daysAgo', diffDays, { n: diffDays })
 
-  return date.toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  })
+  return date.toLocaleDateString()
 }
 </script>

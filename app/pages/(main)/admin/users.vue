@@ -4,6 +4,8 @@ definePageMeta({
   // middleware: ['auth'] // auth.global.ts ya maneja esto
 })
 
+const { t, tc } = useI18n()
+
 const { data: users, status, error } = await useFetch('/api/admin/users')
 
 // const columns = [
@@ -22,10 +24,10 @@ const items = computed(() => {
     imageUrl: user.imageUrl,
     firstName: user.firstName,
     lastName: user.lastName,
-    displayName: user.firstName ? `${user.firstName} ${user.lastName || ''}` : 'No Name',
+    displayName: user.firstName ? `${user.firstName} ${user.lastName || ''}` : t('common.noName'),
     email: user.emailAddresses.find((e: any) => e.id === user.primaryEmailAddressId)?.emailAddress || user.emailAddresses[0]?.emailAddress,
     role: user.publicMetadata?.role || 'owner', // Default to owner as per requirements
-    lastSignInAt: user.lastSignInAt ? new Date(user.lastSignInAt).toLocaleDateString() : 'Never',
+    lastSignInAt: user.lastSignInAt ? new Date(user.lastSignInAt).toLocaleDateString() : t('common.never'),
     createdAt: new Date(user.createdAt).toLocaleDateString()
   }))
 })
@@ -34,18 +36,18 @@ const items = computed(() => {
 <template>
   <div class="p-6">
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold">Users Management</h1>
-      <UBadge color="primary" variant="soft">{{ items.length }} Users</UBadge>
+      <h1 class="text-2xl font-bold">{{ $t('admin.users.title') }}</h1>
+      <UBadge color="primary" variant="soft">{{ $tc('plurals.user', items.length, { count: items.length }) }}</UBadge>
     </div>
 
     <UCard v-if="error" class="mb-4" >
         <template #header>
          <div class="text-red-500 font-bold">
-            Access Denied
+            {{ $t('admin.users.accessDenied') }}
         </div>
         </template>
       <div class="text-red-500">
-        {{ error.statusCode === 403 ? 'You do not have permission to view this page.' : error.message }}
+        {{ error.statusCode === 403 ? $t('admin.users.accessDeniedMessage') : error.message }}
       </div>
     </UCard>
 

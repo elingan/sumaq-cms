@@ -1,0 +1,203 @@
+{
+  "common": {
+    "appName": "Sumaq Sites",
+    "loading": "Laden...",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "submit": "Absenden",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "yes": "Ja",
+    "no": "Nein",
+    "back": "Zurück",
+    "next": "Weiter",
+    "copyright": "© {year}",
+    "copyrightFull": "Sumaq • © {year}",
+    "builtWith": "Erstellt mit Nuxt UI • © {year}",
+    "noName": "Kein Name",
+    "never": "Niemals"
+  },
+
+  "nav": {
+    "dashboard": "Dashboard",
+    "billing": "Abrechnung",
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "notifications": "Benachrichtigungen",
+    "admin": "Verwaltung",
+    "users": "Benutzer",
+    "adminSettings": "Administrator-Einstellungen"
+  },
+
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "subtitle": "Geben Sie Ihre Anmeldedaten ein, um auf Ihr Konto zuzugreifen.",
+      "submitButton": "Anmelden",
+      "forgotPassword": "Passwort vergessen?",
+      "rememberMe": "Angemeldet bleiben",
+      "success": "Erfolgreich angemeldet",
+      "error": "Anmeldefehler"
+    },
+    "forgotPassword": {
+      "title": "Passwort Wiederherstellen",
+      "subtitle": "Geben Sie Ihre E-Mail ein und wir senden Ihnen einen Link zur Wiederherstellung Ihres Passworts",
+      "submitButton": "Link Senden",
+      "backToLogin": "Zurück zur Anmeldung",
+      "successTitle": "Link gesendet!",
+      "successMessage": "Wenn ein Konto mit dieser E-Mail existiert, erhalten Sie einen Link zur Passwortwiederherstellung.",
+      "errorTitle": "Fehler",
+      "errorMessage": "Fehler beim Senden des Links"
+    },
+    "resetPassword": {
+      "title": "Neues Passwort",
+      "subtitle": "Geben Sie Ihr neues Passwort ein",
+      "submitButton": "Passwort Zurücksetzen",
+      "successTitle": "Passwort zurückgesetzt!",
+      "successMessage": "Ihr Passwort wurde erfolgreich aktualisiert.",
+      "loginButton": "Anmelden",
+      "errorTitle": "Fehler",
+      "errorMessage": "Fehler beim Zurücksetzen des Passworts"
+    },
+    "logout": "Abmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "newPassword": "Neues Passwort",
+    "confirmPassword": "Passwort Bestätigen"
+  },
+
+  "form": {
+    "emailPlaceholder": "ihre@email.com",
+    "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+    "newPasswordPlaceholder": "Geben Sie Ihr neues Passwort ein",
+    "confirmPasswordPlaceholder": "Bestätigen Sie Ihr neues Passwort"
+  },
+
+  "validation": {
+    "invalidEmail": "Ungültige E-Mail",
+    "required": "{field} ist erforderlich",
+    "passwordRequired": "Passwort ist erforderlich",
+    "minLength": "Muss mindestens {count} Zeichen lang sein | Muss mindestens {count} Zeichen lang sein",
+    "minPasswordLength": "Das Passwort muss mindestens {count} Zeichen lang sein | Das Passwort muss mindestens {count} Zeichen lang sein",
+    "minConfirmPasswordLength": "Die Passwortbestätigung muss mindestens {count} Zeichen lang sein | Die Passwortbestätigung muss mindestens {count} Zeichen lang sein",
+    "passwordsMismatch": "Passwörter stimmen nicht überein"
+  },
+
+  "admin": {
+    "settings": {
+      "title": "Administrator-Einstellungen",
+      "github": {
+        "title": "GitHub-Verbindung",
+        "subtitle": "Verbinden Sie Ihr GitHub-Konto, um auf Ihre Repositories zuzugreifen und Projekte zu verwalten.",
+        "connectButton": "GitHub Verbinden",
+        "username": "@{username}",
+        "allRepos": "Alle Repositories",
+        "selectedRepos": "Ausgewählte Repositories",
+        "connectedOn": "Verbunden am {date}",
+        "viewRepos": "Repositories Anzeigen",
+        "configureAccess": "Zugriff Konfigurieren",
+        "disconnect": "Trennen"
+      }
+    },
+    "users": {
+      "title": "Benutzerverwaltung",
+      "accessDenied": "Zugriff Verweigert",
+      "accessDeniedMessage": "Sie haben keine Berechtigung, diese Seite anzuzeigen."
+    },
+    "github": {
+      "repos": {
+        "title": "Meine GitHub-Repositories",
+        "subtitle": "Repositories verwalten und Benutzern zuweisen",
+        "searchPlaceholder": "Repositories suchen...",
+        "filterAll": "Alle",
+        "filterPublic": "Öffentlich",
+        "filterPrivate": "Privat",
+        "noReposFound": "Keine Repositories gefunden",
+        "noDescription": "Keine Beschreibung",
+        "viewOnGithub": "Auf GitHub Anzeigen"
+      }
+    }
+  },
+
+  "site": {
+    "title": "Website",
+    "onboarding": "Website-Onboarding",
+    "storage": "Website-Speicher",
+    "summary": "Website-Zusammenfassung"
+  },
+
+  "templates": {
+    "starter": "Starter",
+    "landing": "Landing Page",
+    "docs": "Dokumentation",
+    "saas": "SaaS",
+    "dashboard": "Dashboard",
+    "chat": "Chat",
+    "portfolio": "Portfolio",
+    "changelog": "Änderungsprotokoll"
+  },
+
+  "pages": {
+    "dashboard": {
+      "title": "Dashboard",
+      "content": "Dashboard-Inhalt"
+    },
+    "billing": {
+      "title": "Abrechnung",
+      "content": "Abrechnungsinhalt"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "content": "Einstellungsinhalt"
+    },
+    "notifications": {
+      "title": "Benachrichtigungen"
+    },
+    "profile": {
+      "title": "Profil"
+    }
+  },
+
+  "plurals": {
+    "user": "keine Benutzer | ein Benutzer | {count} Benutzer",
+    "repository": "keine Repositories | ein Repository | {count} Repositories",
+    "star": "{n} Stern | {n} Sterne",
+    "day": "{n} Tag | {n} Tage",
+    "hour": "{n} Stunde | {n} Stunden",
+    "minute": "{n} Minute | {n} Minuten",
+    "notification": "keine Benachrichtigungen | eine Benachrichtigung | {count} Benachrichtigungen",
+    "item": "keine Elemente | ein Element | {count} Elemente",
+    "file": "keine Dateien | eine Datei | {count} Dateien",
+    "member": "keine Mitglieder | ein Mitglied | {count} Mitglieder",
+    "site": "keine Websites | eine Website | {count} Websites"
+  },
+
+  "time": {
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "daysAgo": "vor {n} Tag | vor {n} Tagen",
+    "updated": "Aktualisiert",
+    "updatedOn": "Aktualisiert: {date}"
+  },
+
+  "errors": {
+    "generic": "Ein Fehler ist aufgetreten",
+    "notFound": "Nicht gefunden",
+    "unauthorized": "Nicht autorisiert",
+    "forbidden": "Verboten",
+    "serverError": "Serverfehler"
+  },
+
+  "status": {
+    "success": "Erfolg",
+    "error": "Fehler",
+    "warning": "Warnung",
+    "info": "Information"
+  }
+}

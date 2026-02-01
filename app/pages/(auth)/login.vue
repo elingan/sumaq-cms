@@ -13,13 +13,13 @@
       </template> -->
 
       <UAuthForm
-        title="Login"
-        description="Enter your credentials to access your account."
+        :title="$t('auth.login.title')"
+        :description="$t('auth.login.subtitle')"
         icon="i-lucide-user"
         :schema="schema"
         :fields="fields"
         :submit-button="{
-          label: 'Iniciar Sesión',
+          label: $t('auth.login.submitButton'),
           trailingIcon: 'i-heroicons-arrow-right-20-solid'
         }"
         @submit="handleLogin"
@@ -41,7 +41,7 @@
               to="/forgot-password"
               class="text-primary"
             >
-              ¿Olvidaste tu contraseña?
+              {{ $t('auth.login.forgotPassword') }}
             </UButton>
           </div>
         </template>
@@ -58,30 +58,32 @@ const toast = useToast()
 
 const router = useRouter()
 
-const fields: AuthFormField [] = [
+const { t } = useI18n()
+
+const fields = computed<AuthFormField[]>(() => [
   {
     name: 'email',
     type: 'email',
-    label: 'Email',
-    placeholder: 'tu@email.com',
+    label: t('auth.email'),
+    placeholder: t('form.emailPlaceholder'),
     required: true
   },
   {
     name: 'password',
     type: 'password',
-    label: 'Contraseña',
-    placeholder: 'Ingresa tu contraseña',
+    label: t('auth.password'),
+    placeholder: t('form.passwordPlaceholder'),
     required: true
   },
   {
     name: 'remember',
-    label: 'Remember me',
+    label: t('auth.login.rememberMe'),
     type: 'checkbox'
   }
-]
+])
 const schema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password is required').min(8, 'Must be at least 8 characters')
+  email: z.string().email(t('validation.invalidEmail')),
+  password: z.string().min(1, t('validation.passwordRequired')).min(8, t('validation.minLength', { count: 8 }))
 })
 
 type Schema = z.output<typeof schema>
@@ -100,11 +102,11 @@ const handleLogin = async (payload: FormSubmitEvent<Schema>) => {
     await router.push('/dashboard')
   } catch (error: any) {
     toast.add({
-      title: 'Error',
-      description: error.data?.message || 'Error al iniciar sesión',
+      title: t('auth.login.error'),
+      description: error.data?.message || t('auth.login.error'),
       color: 'error'
     })
-    throw new Error(error.data?.message || 'Error al iniciar sesión')
+    throw new Error(error.data?.message || t('auth.login.error'))
   }
 }
 </script>

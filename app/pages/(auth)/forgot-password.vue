@@ -4,10 +4,10 @@
       <template #header>
         <div class="text-center">
           <h1 class="text-2xl font-bold">
-            Recuperar Contraseña
+            {{ $t('auth.forgotPassword.title') }}
           </h1>
           <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Ingresa tu email y te enviaremos un enlace para recuperar tu contraseña
+            {{ $t('auth.forgotPassword.subtitle') }}
           </p>
         </div>
       </template>
@@ -17,7 +17,7 @@
         :fields="fields"
         :schema="schema"
         :submit-button="{
-          label: 'Enviar Enlace',
+          label: $t('auth.forgotPassword.submitButton'),
           trailingIcon: 'i-heroicons-paper-airplane-20-solid'
         }"
         @submit="handleForgotPassword"
@@ -39,7 +39,7 @@
               to="/login"
               class="text-primary"
             >
-              Volver al inicio de sesión
+              {{ $t('auth.forgotPassword.backToLogin') }}
             </UButton>
           </div>
         </template>
@@ -49,15 +49,15 @@
         <UAlert
           color="green"
           variant="soft"
-          title="¡Enlace enviado!"
-          description="Si existe una cuenta con ese email, recibirás un enlace para recuperar tu contraseña."
+          :title="$t('auth.forgotPassword.successTitle')"
+          :description="$t('auth.forgotPassword.successMessage')"
           class="mb-4"
         />
         <UButton
           to="/login" variant="outline"
           class="mt-4"
         >
-          Volver al inicio de sesión
+          {{ $t('auth.forgotPassword.backToLogin') }}
         </UButton>
       </div>
     </UCard>
@@ -70,17 +70,19 @@ import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 
 const toast = useToast()
 
-const fields: AuthFormField [] = [
+const { t } = useI18n()
+
+const fields = computed<AuthFormField[]>(() => [
   {
     name: 'email',
     type: 'email',
-    label: 'Email',
-    placeholder: 'tu@email.com'
+    label: t('auth.email'),
+    placeholder: t('form.emailPlaceholder')
   }
-]
+])
 
 const schema = z.object({
-  email: z.string().email('Invalid email')
+  email: z.string().email(t('validation.invalidEmail'))
 })
 
 type Schema = z.output<typeof schema>
@@ -96,19 +98,19 @@ const handleForgotPassword = async (payload: FormSubmitEvent<Schema>) => {
       }
     })
     toast.add({
-      title: 'Éxito',
-      description: 'Si existe una cuenta con ese email, recibirás un enlace para recuperar tu contraseña.',
+      title: t('status.success'),
+      description: t('auth.forgotPassword.successMessage'),
       color: 'success'
     })
 
     submitted.value = true
   } catch (error: any) {
     toast.add({
-      title: 'Error',
-      description: error.data?.message || 'Error al enviar el enlace',
+      title: t('status.error'),
+      description: error.data?.message || t('auth.forgotPassword.errorMessage'),
       color: 'error'
     })
-    throw new Error(error.data?.message || 'Error al enviar el enlace')
+    throw new Error(error.data?.message || t('auth.forgotPassword.errorMessage'))
   }
 }
 </script>

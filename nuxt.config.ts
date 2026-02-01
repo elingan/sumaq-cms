@@ -8,8 +8,44 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     '@nuxt/test-utils',
     'nuxt-auth-utils',
-    '@nuxthub/core'
+    '@nuxthub/core',
+    '@nuxtjs/i18n'
   ],
+
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        language: 'en-US',
+        name: 'English',
+        file: 'en.json'
+      },
+      {
+        code: 'es',
+        language: 'es-ES',
+        name: 'Español',
+        file: 'es.json'
+      },
+      {
+        code: 'de',
+        language: 'de-DE',
+        name: 'Deutsch',
+        file: 'de.json'
+      }
+    ],
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_locale',
+      redirectOn: 'root',
+      alwaysRedirect: false,
+      fallbackLocale: 'en'
+    },
+    lazy: true,
+    langDir: 'locales',
+    vueI18n: './i18n.config.ts'
+  },
 
   $production: {
     hub: {

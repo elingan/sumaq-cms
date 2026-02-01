@@ -19,9 +19,9 @@
 
     <template #footer="{ collapsed }">
       <p v-if="!collapsed" class="text-sm text-muted">
-        Sumaq • © {{ new Date().getFullYear() }}
+        {{ $t('common.copyrightFull', { year: new Date().getFullYear() }) }}
       </p>
-      <p v-else class="text-sm text-muted">© {{ new Date().getFullYear() }}</p>
+      <p v-else class="text-sm text-muted">{{ $t('common.copyright', { year: new Date().getFullYear() }) }}</p>
     </template>
   </UDashboardSidebar>
 </template>
@@ -29,21 +29,23 @@
 <script lang="ts" setup>
 import type { NavigationMenuItem } from '@nuxt/ui';
 
+const { t } = useI18n()
+
 // const route = useRoute();
 
 const items: NavigationMenuItem[] = computed(() => [
   {
-    label: 'Dashboard',
+    label: t('nav.dashboard'),
     icon: 'i-lucide-house',
     to: '/dashboard',
   },
   {
-    label: 'Billing',
+    label: t('nav.billing'),
     icon: 'i-lucide-credit-card',
     to: '/billing',
   },
   {
-    label: 'Settings',
+    label: t('nav.settings'),
     icon: 'i-lucide-settings',
     to: '/settings',
     // defaultOpen: true,

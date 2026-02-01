@@ -1,6 +1,6 @@
 <template>
   <div>
-    Site
+    {{ $t('site.title') }}
   </div>
 </template>
 

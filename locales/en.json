@@ -1,0 +1,203 @@
+{
+  "common": {
+    "appName": "Sumaq Sites",
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "next": "Next",
+    "copyright": "© {year}",
+    "copyrightFull": "Sumaq • © {year}",
+    "builtWith": "Built with Nuxt UI • © {year}",
+    "noName": "No Name",
+    "never": "Never"
+  },
+
+  "nav": {
+    "dashboard": "Dashboard",
+    "billing": "Billing",
+    "settings": "Settings",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "admin": "Admin",
+    "users": "Users",
+    "adminSettings": "Admin Settings"
+  },
+
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Enter your credentials to access your account.",
+      "submitButton": "Sign In",
+      "forgotPassword": "Forgot your password?",
+      "rememberMe": "Remember me",
+      "success": "Logged in successfully",
+      "error": "Login error"
+    },
+    "forgotPassword": {
+      "title": "Recover Password",
+      "subtitle": "Enter your email and we'll send you a link to recover your password",
+      "submitButton": "Send Link",
+      "backToLogin": "Back to login",
+      "successTitle": "Link sent!",
+      "successMessage": "If an account exists with that email, you will receive a password recovery link.",
+      "errorTitle": "Error",
+      "errorMessage": "Error sending the link"
+    },
+    "resetPassword": {
+      "title": "New Password",
+      "subtitle": "Enter your new password",
+      "submitButton": "Reset Password",
+      "successTitle": "Password reset!",
+      "successMessage": "Your password has been updated successfully.",
+      "loginButton": "Login",
+      "errorTitle": "Error",
+      "errorMessage": "Error resetting password"
+    },
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password"
+  },
+
+  "form": {
+    "emailPlaceholder": "your@email.com",
+    "passwordPlaceholder": "Enter your password",
+    "newPasswordPlaceholder": "Enter your new password",
+    "confirmPasswordPlaceholder": "Confirm your new password"
+  },
+
+  "validation": {
+    "invalidEmail": "Invalid email",
+    "required": "{field} is required",
+    "passwordRequired": "Password is required",
+    "minLength": "Must be at least {count} character | Must be at least {count} characters",
+    "minPasswordLength": "Password must be at least {count} character | Password must be at least {count} characters",
+    "minConfirmPasswordLength": "Password confirmation must be at least {count} character | Password confirmation must be at least {count} characters",
+    "passwordsMismatch": "Passwords do not match"
+  },
+
+  "admin": {
+    "settings": {
+      "title": "Administrator Settings",
+      "github": {
+        "title": "GitHub Connection",
+        "subtitle": "Connect your GitHub account to access your repositories and manage projects.",
+        "connectButton": "Connect GitHub",
+        "username": "@{username}",
+        "allRepos": "All repositories",
+        "selectedRepos": "Selected repositories",
+        "connectedOn": "Connected on {date}",
+        "viewRepos": "View Repositories",
+        "configureAccess": "Configure Access",
+        "disconnect": "Disconnect"
+      }
+    },
+    "users": {
+      "title": "Users Management",
+      "accessDenied": "Access Denied",
+      "accessDeniedMessage": "You do not have permission to view this page."
+    },
+    "github": {
+      "repos": {
+        "title": "My GitHub Repositories",
+        "subtitle": "Manage and assign repositories to users",
+        "searchPlaceholder": "Search repositories...",
+        "filterAll": "All",
+        "filterPublic": "Public",
+        "filterPrivate": "Private",
+        "noReposFound": "No repositories found",
+        "noDescription": "No description",
+        "viewOnGithub": "View on GitHub"
+      }
+    }
+  },
+
+  "site": {
+    "title": "Site",
+    "onboarding": "Site Onboarding",
+    "storage": "Site Storage",
+    "summary": "Site Summary"
+  },
+
+  "templates": {
+    "starter": "Starter",
+    "landing": "Landing",
+    "docs": "Docs",
+    "saas": "SaaS",
+    "dashboard": "Dashboard",
+    "chat": "Chat",
+    "portfolio": "Portfolio",
+    "changelog": "Changelog"
+  },
+
+  "pages": {
+    "dashboard": {
+      "title": "Dashboard",
+      "content": "Dashboard content"
+    },
+    "billing": {
+      "title": "Billing",
+      "content": "Billing content"
+    },
+    "settings": {
+      "title": "Settings",
+      "content": "Settings content"
+    },
+    "notifications": {
+      "title": "Notifications"
+    },
+    "profile": {
+      "title": "Profile"
+    }
+  },
+
+  "plurals": {
+    "user": "no users | one user | {count} users",
+    "repository": "no repositories | one repository | {count} repositories",
+    "star": "{n} star | {n} stars",
+    "day": "{n} day | {n} days",
+    "hour": "{n} hour | {n} hours",
+    "minute": "{n} minute | {n} minutes",
+    "notification": "no notifications | one notification | {count} notifications",
+    "item": "no items | one item | {count} items",
+    "file": "no files | one file | {count} files",
+    "member": "no members | one member | {count} members",
+    "site": "no sites | one site | {count} sites"
+  },
+
+  "time": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{n} day ago | {n} days ago",
+    "updated": "Updated",
+    "updatedOn": "Updated: {date}"
+  },
+
+  "errors": {
+    "generic": "An error occurred",
+    "notFound": "Not found",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "serverError": "Server error"
+  },
+
+  "status": {
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info"
+  }
+}

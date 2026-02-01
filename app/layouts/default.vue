@@ -41,12 +41,12 @@
     <UFooter>
       <template #left>
         <p class="text-sm text-muted">
-          Built with Nuxt UI • © {{ new Date().getFullYear() }}
+          {{ $t('common.builtWith', { year: new Date().getFullYear() }) }}
         </p>
       </template>
 
       <template #right>
-        <p>Sumaq Sites</p>
+        <p>{{ $t('common.appName') }}</p>
       </template>
     </UFooter>
   </div>

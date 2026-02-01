@@ -2,7 +2,7 @@
   <div class="flex min-h-screen items-center justify-center">
     <div class="text-center">
       <p class="text-gray-600 dark:text-gray-400">
-        Cargando...
+        {{ $t('common.loading') }}
       </p>
     </div>
   </div>
