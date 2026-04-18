@@ -23,7 +23,6 @@
     "noName": "Sin Nombre",
     "never": "Nunca"
   },
-
   "nav": {
     "dashboard": "Panel",
     "billing": "Facturación",
@@ -34,7 +33,6 @@
     "users": "Usuarios",
     "adminSettings": "Configuración de Administrador"
   },
-
   "auth": {
     "login": {
       "title": "Iniciar Sesión",
@@ -71,14 +69,12 @@
     "newPassword": "Nueva Contraseña",
     "confirmPassword": "Confirmar Contraseña"
   },
-
   "form": {
-    "emailPlaceholder": "tu@email.com",
+    "emailPlaceholder": "tu.email.com",
     "passwordPlaceholder": "Ingresa tu contraseña",
     "newPasswordPlaceholder": "Ingresa tu nueva contraseña",
     "confirmPasswordPlaceholder": "Confirma tu nueva contraseña"
   },
-
   "validation": {
     "invalidEmail": "Email inválido",
     "required": "{field} es requerido",
@@ -88,7 +84,6 @@
     "minConfirmPasswordLength": "La confirmación de la contraseña debe tener al menos {count} carácter | La confirmación de la contraseña debe tener al menos {count} caracteres",
     "passwordsMismatch": "Las contraseñas no coinciden"
   },
-
   "admin": {
     "settings": {
       "title": "Configuración de Administrador",
@@ -96,7 +91,7 @@
         "title": "Conexión GitHub",
         "subtitle": "Conecta tu cuenta de GitHub para acceder a tus repositorios y gestionar proyectos.",
         "connectButton": "Conectar GitHub",
-        "username": "@{username}",
+        "username": "{username}",
         "allRepos": "Todos los repositorios",
         "selectedRepos": "Repositorios seleccionados",
         "connectedOn": "Conectado el {date}",
@@ -124,14 +119,12 @@
       }
     }
   },
-
   "site": {
     "title": "Sitio",
     "onboarding": "Incorporación del Sitio",
     "storage": "Almacenamiento del Sitio",
     "summary": "Resumen del Sitio"
   },
-
   "templates": {
     "starter": "Inicial",
     "landing": "Página de Destino",
@@ -142,7 +135,6 @@
     "portfolio": "Portafolio",
     "changelog": "Registro de Cambios"
   },
-
   "pages": {
     "dashboard": {
       "title": "Panel",
@@ -163,7 +155,6 @@
       "title": "Perfil"
     }
   },
-
   "plurals": {
     "user": "sin usuarios | un usuario | {count} usuarios",
     "repository": "sin repositorios | un repositorio | {count} repositorios",
@@ -177,7 +168,6 @@
     "member": "sin miembros | un miembro | {count} miembros",
     "site": "sin sitios | un sitio | {count} sitios"
   },
-
   "time": {
     "today": "Hoy",
     "yesterday": "Ayer",
@@ -185,7 +175,6 @@
     "updated": "Actualizado",
     "updatedOn": "Actualizado: {date}"
   },
-
   "errors": {
     "generic": "Ocurrió un error",
     "notFound": "No encontrado",
@@ -193,7 +182,6 @@
     "forbidden": "Prohibido",
     "serverError": "Error del servidor"
   },
-
   "status": {
     "success": "Éxito",
     "error": "Error",
